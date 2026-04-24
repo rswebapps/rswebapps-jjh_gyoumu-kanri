@@ -17,7 +17,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-  <meta name="theme-color" content="#1a6fc4">
+  <meta name="theme-color" content="#8C1C3A">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -25,15 +25,15 @@
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#1a6fc4">
+<meta name="theme-color" content="#8C1C3A">
 <title>授業改革推進実績報告</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ical.js/1.5.0/ical.min.js"></script>
 <style>
 :root{
-  --blue:#1a6fc4;--blue-lt:#e8f2fc;--sem1:#1a6fc4;--sem2:#2e7d32;--sem3:#7b1fa2;
+  --blue:#8C1C3A;--blue-lt:#F7E8EC;--sem1:#8C1C3A;--sem2:#2e7d32;--sem3:#7b1fa2;
   --bg:#f2f5f9;--card:#fff;--border:#d8dde6;--text:#2c3e50;--muted:#8a93a0;
-  --col-full:#1a6fc4;--col-half:#e65100;--col-mod:#7b1fa2;--col-plan:#558b2f;
+  --col-full:#8C1C3A;--col-half:#e65100;--col-mod:#7b1fa2;--col-plan:#558b2f;
   --col-pos:#2e7d32;--col-neg:#c62828;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -64,6 +64,13 @@ body{font-family:'Hiragino Kaku Gothic ProN','Yu Gothic UI','Meiryo',sans-serif;
   white-space:nowrap;transition:background .12s}
 .hd-btn:hover{background:rgba(255,255,255,.32)}
 .hd-btn.accent{background:rgba(255,255,255,.28);font-weight:700}
+#btn-open-file:hover{background:#D9A0B0!important;border-color:#D9A0B0!important}
+#btn-save-file:hover{background:#e65100!important;border-color:#e65100!important;color:#fff!important}
+#btn-exit:hover{background:#b71c1c!important;border-color:#b71c1c!important;color:#fff!important}
+#btn-prev-week,#btn-next-week{background:rgba(255,255,255,.15);color:#fff}
+#btn-prev-week:hover,#btn-next-week:hover{background:rgba(255,255,255,.3)!important}
+#btn-today{background:#ffe082;color:#8C1C3A;font-weight:700;border-color:#ffca28}
+#btn-today:hover{background:#ffca28!important;color:#5C0E24!important}
 /* SEMBAR */
 #sembar{background:var(--card);border-bottom:2px solid var(--border);
   display:flex;align-items:flex-end;padding:0 12px;flex-shrink:0}
@@ -72,7 +79,7 @@ body{font-family:'Hiragino Kaku Gothic ProN','Yu Gothic UI','Meiryo',sans-serif;
   transition:all .15s;border-radius:4px 4px 0 0;white-space:nowrap}
 .stab:hover{background:#f5f6f8}
 .stab.cfg.on{color:#444;border-bottom-color:#555;background:#f5f6f8}
-.stab[data-sem="1"].on{color:var(--sem1);border-bottom-color:var(--sem1);background:#e8f2fc}
+.stab[data-sem="1"].on{color:var(--sem1);border-bottom-color:var(--sem1);background:#F7E8EC}
 .stab[data-sem="2"].on{color:var(--sem2);border-bottom-color:var(--sem2);background:#e8f5e9}
 .stab[data-sem="3"].on{color:var(--sem3);border-bottom-color:var(--sem3);background:#f3e5f5}
 .stab[data-sem="year"].on{color:#bf360c;border-bottom-color:#bf360c;background:#fff3e0}
@@ -92,6 +99,7 @@ body{font-family:'Hiragino Kaku Gothic ProN','Yu Gothic UI','Meiryo',sans-serif;
   background:#fff;color:var(--blue);font-size:12px;font-family:inherit;transition:all .12s}
 .wbtn:hover:not(.on){background:var(--blue-lt)}
 .wbtn.on{background:var(--blue);color:#fff}
+#btn-today.on{background:#fff;color:var(--blue);font-weight:700;border-color:var(--blue)}
 #wdate{padding:3px 7px;border:1px solid var(--border);border-radius:4px;font-family:inherit;font-size:12px}
 .wbar-note{font-size:10px;color:var(--muted)}
 .pat-wrap{position:relative}
@@ -136,7 +144,7 @@ body{font-family:'Hiragino Kaku Gothic ProN','Yu Gothic UI','Meiryo',sans-serif;
   border-radius:4px;font-size:12px;font-family:inherit;max-width:120px}
 .cfg-tbl input[type=checkbox]{width:14px;height:14px;cursor:pointer;accent-color:var(--blue)}
 .rbtn{padding:2px 7px;border-radius:4px;font-size:11px;cursor:pointer;font-family:inherit;border:1px solid}
-.rbtn-up,.rbtn-dn{background:#e8f2fc;color:var(--blue);border-color:#bdd6f0}
+.rbtn-up,.rbtn-dn{background:#F7E8EC;color:var(--blue);border-color:#D9A0B0}
 .rbtn-del{background:#ffebee;color:#c62828;border-color:#ffcdd2}
 .btn-add{padding:5px 12px;background:var(--blue);color:#fff;border:none;
   border-radius:5px;font-size:12px;cursor:pointer;font-family:inherit;margin-top:8px}
@@ -156,7 +164,7 @@ body{font-family:'Hiragino Kaku Gothic ProN','Yu Gothic UI','Meiryo',sans-serif;
 #tt-wrap{padding:8px}
 .copy-bar{display:flex;align-items:center;gap:8px;margin-bottom:4px}
 .copy-area-btn{font-size:11px;padding:3px 10px;border:1px solid var(--blue);border-radius:4px;
-  background:#e8f2fc;color:var(--blue);cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0}
+  background:#F7E8EC;color:var(--blue);cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0}
 .copy-area-btn:hover{background:var(--blue);color:#fff}
 .copy-area-btn.copied{background:#e8f5e9;border-color:#2e7d32;color:#2e7d32}
 table#tt{border-collapse:collapse;width:100%;min-width:580px}
@@ -164,7 +172,7 @@ table#tt{border-collapse:collapse;width:100%;min-width:580px}
   font-size:12px;font-weight:600;position:sticky;top:0;z-index:10;white-space:nowrap}
 .th-sl{width:64px;left:0;z-index:15}
 .th-dy{min-width:100px}
-.th-sat{background:#1565c0!important}
+.th-sat{background:#8C1C3A!important}
 .th-sun{background:#b71c1c!important}
 td.sltd{background:#f7f9fc;font-size:11px;font-weight:700;text-align:center;
   padding:4px;border-right:2px solid var(--blue);position:sticky;left:0;z-index:5;
@@ -181,7 +189,7 @@ td.memo-hd.schedule-hd{background:#e0f2f1;color:#00695c;border-right-color:#26a6
 td.memo-cell.schedule-cell{background:#e0f2f1;border-color:#80cbc4}
 .schedule-inp.selected{background:#b2dfdb!important;outline:2px solid #26a69a;}
 .schedule-display{font-size:11px;color:var(--text);line-height:1.5;padding:2px 3px;min-height:20px;word-break:break-all}
-td.memo-hd.leave-hd{background:#e8f5e9;color:#2e7d32;border-right-color:#43a047}td.memo-hd.hw-hd{background:#e3f2fd;color:#1565c0;border-right-color:#1e88e5}
+td.memo-hd.leave-hd{background:#e8f5e9;color:#2e7d32;border-right-color:#43a047}td.memo-hd.hw-hd{background:#e3f2fd;color:#8C1C3A;border-right-color:#1e88e5}
 td.memo-hd.renraku-hd{background:#e8eaf6;color:#283593;border-right-color:#3949ab}
 td.memo-hd.aim-hd{background:#fff8e1;color:#f57f17;border-right-color:#ffb300}
 td.memo-hd.notice-hd{background:#fce4ec;color:#880e4f;border-right-color:#e91e63}
@@ -269,7 +277,7 @@ table.jt tfoot td:first-child{text-align:left}
 .scard{background:var(--card);border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.07);
   overflow:hidden;margin-bottom:20px}
 .scardh{padding:10px 14px;font-size:13px;font-weight:700;border-bottom:2px solid var(--border)}
-.scardh.s1{background:#e8f2fc;color:var(--sem1)}
+.scardh.s1{background:#F7E8EC;color:var(--sem1)}
 .scardh.s2{background:#e8f5e9;color:var(--sem2)}
 .scardh.s3{background:#f3e5f5;color:var(--sem3)}
 .scardh.sy{background:#fff3e0;color:#bf360c}
@@ -331,7 +339,7 @@ table.jrt tbody td:first-child{text-align:left;font-weight:600;font-size:11px}
   #tt th{background:#444!important;color:#fff!important;padding:2px 3px!important;
     font-size:8px!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .th-sl{width:42px!important}
-  .th-sat{background:#1565c0!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .th-sat{background:#8C1C3A!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .th-sun{background:#b71c1c!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   td.sltd{background:#f0f4f9!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;
     font-size:7px!important;padding:1px 2px!important;width:42px!important}
@@ -435,7 +443,7 @@ table.jrt tbody td:first-child{text-align:left;font-weight:600;font-size:11px}
 .mbcancel{background:#f5f6f8;border-color:var(--border);color:var(--muted)}
 /* ─── 起動画面オーバーレイ ──────────────────────────────────── */
 #startup-overlay{display:none;position:fixed;inset:0;z-index:300;
-  background:linear-gradient(140deg,#1a4a8a 0%,#1a6fc4 100%);
+  background:linear-gradient(140deg,#1a4a8a 0%,#8C1C3A 100%);
   align-items:center;justify-content:center}
 #startup-overlay.on{display:flex}
 #startup-card{background:#fff;border-radius:16px;padding:44px 52px;
@@ -501,9 +509,9 @@ table.jrt tbody td:first-child{text-align:left;font-weight:600;font-size:11px}
   <div class="hdf"><label>氏名</label><input id="inp-class" placeholder="氏名を入力" maxlength="20"></div>
   <div class="hdf"><label>番号</label><input id="inp-teacher" placeholder="番号" maxlength="6"></div>
   <span class="sep" style="opacity:.25">|</span>
-  <button class="hd-btn" id="btn-open-file">📂 記録データを開く</button>
-  <button class="hd-btn accent" id="btn-save-file">💾 記録データを保存</button>
-  <button class="hd-btn" id="btn-exit" style="border-color:rgba(255,255,255,.5)">✕ 終了</button>
+  <button class="hd-btn" id="btn-open-file" style="background:#F7E8EC;border-color:#C47090;color:#5C0E24;font-weight:700">📂 記録データを開く</button>
+  <button class="hd-btn" id="btn-save-file" style="background:#ff8c00;border-color:#ff8c00;color:#fff;font-weight:700">💾 記録データを保存</button>
+  <button class="hd-btn" id="btn-exit" style="background:#e53935;border-color:#e53935;color:#fff;font-weight:700">✕ 終了</button>
   <span class="sep" style="opacity:.25">|</span>
   <div id="week-nav-btns" style="display:none;align-items:center;gap:4px">
     <button class="hd-btn" id="btn-prev-week">◀ 前週</button>
@@ -666,7 +674,7 @@ const CHILD_COLORS=['#e53935','#8e24aa','#1e88e5','#00897b','#43a047','#fb8c00',
 const CHILD_IDS='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 const MAX_CHILDREN=26;
 const SEMS={
-  '1':{label:'1学期',months:[4,5,6,7,8],color:'#1a6fc4',cls:'s1'},
+  '1':{label:'1学期',months:[4,5,6,7,8],color:'#8C1C3A',cls:'s1'},
   '2':{label:'2学期',months:[9,10,11,12],color:'#2e7d32',cls:'s2'},
   '3':{label:'3学期',months:[1,2,3],color:'#7b1fa2',cls:'s3'}
 };
@@ -768,7 +776,7 @@ function validWeekCountForMonths(months){
 }
 
 const SCOLORS={
-  '国語':'#c62828','書写':'#c62828','図書':'#c62828','算数':'#1565c0',
+  '国語':'#c62828','書写':'#c62828','図書':'#c62828','算数':'#8C1C3A',
   '理科':'#2e7d32','社会':'#e65100','道徳':'#7b1fa2','外国語':'#00796b','体育':'#bf360c',
   '外国語活動':'#00796b','音楽':'#f59d00','図画工作':'#8e24aa','家庭':'#c2185b','総合':'#0277bd',
   '学活':'#558b2f','生活':'#827717','行事':'#546e7a','生活単元':'#5d4037','自立':'#37474f'
@@ -784,7 +792,7 @@ const MAX_SCHOOLS=10;
 const WORK_DAYS_LIST=['月','火','水','木','金'];
 // 勤務校バッジカラーパレット（最大10校分）
 const SCHOOL_BADGE_COLORS=[
-  '#1a6fc4','#2e7d32','#e65100','#7b1fa2','#c62828',
+  '#8C1C3A','#2e7d32','#e65100','#7b1fa2','#c62828',
   '#00838f','#558b2f','#6a1b9a','#bf360c','#37474f'
 ];
 function getSchoolColor(idx){ return SCHOOL_BADGE_COLORS[idx % SCHOOL_BADGE_COLORS.length]; }
@@ -1235,7 +1243,7 @@ function renderCfgSchools(){
           ${sc.workDays.includes(d) ? 'checked' : ''}
           style="accent-color:var(--blue)"> ${d}
       </label>`).join('');
-    const rowBg = sc.honmu ? 'background:#e8f2fc' : (i % 2 === 0 ? '' : 'background:#fafafa');
+    const rowBg = sc.honmu ? 'background:#F7E8EC' : (i % 2 === 0 ? '' : 'background:#fafafa');
     const badgePreview = sc.name
       ? makeBadgeHtml(sc.name, '24px', '14px')
       : `<span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#ddd;color:#999;font-size:11px">?</span>`;
@@ -1443,7 +1451,7 @@ function printSchedule(m){
     const dow=dt.getDay();
     const val=S.schedule[iso]||'';
     const isSat=dow===6,isSun=dow===0;
-    const dowColor=isSun?'color:#c62828':isSat?'color:#1565c0':'';
+    const dowColor=isSun?'color:#c62828':isSat?'color:#8C1C3A':'';
     const rowBg=val?'':(isSun?'background:#fff5f5':isSat?'background:#f5f9ff':'background:#fafafa');
     rows+=`<tr style="${rowBg}">
       <td style="${dowColor}">${m}/${d}</td>
@@ -1505,7 +1513,7 @@ function renderScheduleTable(){  const tbody=document.getElementById('schedule-b
     const iso=localDateStr(dt);
     const dow=dt.getDay();
     const val=S.schedule[iso]||'';
-    const dowColor=dow===0?'color:#b71c1c':dow===6?'color:#1565c0':'';
+    const dowColor=dow===0?'color:#b71c1c':dow===6?'color:#8C1C3A':'';
     rows+=`<tr>
       <td style="white-space:nowrap;font-size:12px">${m}/${d}</td>
       <td style="text-align:center;font-size:12px;${dowColor}">${DAY_JP[dow]}</td>
@@ -1782,7 +1790,7 @@ function renderTT(){
 
     // ── 学校名行 ──────────────────────────────────────────────────
     if(item.type==='school'){
-      rows+=`<tr><td class="sltd" style="background:#e8f2fc;font-size:11px;font-weight:700;color:var(--blue)">学校名</td>`;
+      rows+=`<tr><td class="sltd" style="background:#F7E8EC;font-size:11px;font-weight:700;color:var(--blue)">学校名</td>`;
       for(const dk of vdk){
         const active=dkActive[dk];
         const val = active ? (memos.dkSchool[dk]||'') : '';
@@ -2131,7 +2139,7 @@ function renderJisuu(){
   const countHds = countTasks.map(t=>`<th style="font-size:10px;white-space:normal;line-height:1.2">${t.label}</th>`).join('');
   const otherHds = otherTasks.map(t=>`<th style="font-size:10px;white-space:normal;line-height:1.2;color:var(--muted)">${t.label}</th>`).join('');
 
-  const makeCell    =(v)=>`<td style="border:1px solid #b0c8e8;text-align:center;height:26px;padding:2px">${v||0}</td>`;
+  const makeCell    =(v)=>`<td style="border:1px solid #D9A0B0;text-align:center;height:26px;padding:2px">${v||0}</td>`;
   const makeCountCell=(v)=>`<td style="border:1px solid #7ec8a0;text-align:center;height:26px;padding:2px;background:#fafffe">${v||0}</td>`;
   const makeOtherCell=(v)=>`<td style="border:1px solid #ddd;text-align:center;height:26px;padding:2px;color:var(--muted);background:#fafafa">${v||0}</td>`;
 
@@ -2151,7 +2159,7 @@ function renderJisuu(){
     const rowBg = sc.honmu ? 'background:#f5f9ff' : '';
     copyLines.push([...timeVals, ...countVals].join('\t'));
     rows+=`<tr style="${rowBg}">
-      <td style="border:1px solid #b0c8e8;font-size:11px;white-space:nowrap;padding:3px 4px;vertical-align:middle">${label}</td>
+      <td style="border:1px solid #D9A0B0;font-size:11px;white-space:nowrap;padding:3px 4px;vertical-align:middle">${label}</td>
       ${timeCells}
       ${countCells}
       ${otherCells}
@@ -2159,11 +2167,11 @@ function renderJisuu(){
   });
 
   // 合計行（全学校合計）
-  const gtTimeCells  = timeTasks.map(t=>`<td style="border:1px solid #b0c8e8;text-align:center;height:26px;padding:2px;font-weight:700">${grandTotal[t.label]||0}</td>`).join('');
+  const gtTimeCells  = timeTasks.map(t=>`<td style="border:1px solid #D9A0B0;text-align:center;height:26px;padding:2px;font-weight:700">${grandTotal[t.label]||0}</td>`).join('');
   const gtCountCells = countTasks.map(t=>`<td style="border:1px solid #7ec8a0;text-align:center;height:26px;padding:2px;font-weight:700;background:#f0fff4">${grandTotal[t.label]||0}</td>`).join('');
   const gtOtherCells = otherTasks.map(t=>`<td style="border:1px solid #ddd;text-align:center;height:26px;padding:2px;color:var(--muted);font-weight:700;background:#f5f5f5">${grandTotal[t.label]||0}</td>`).join('');
   const tfoot=`<tr style="font-weight:700;background:#dce8f7;border-top:2px solid var(--blue)">
-    <td style="border:1px solid #b0c8e8;font-size:12px;color:var(--blue);white-space:nowrap;padding:3px 4px">全学校<br>合計</td>
+    <td style="border:1px solid #D9A0B0;font-size:12px;color:var(--blue);white-space:nowrap;padding:3px 4px">全学校<br>合計</td>
     ${gtTimeCells}
     ${gtCountCells}
     ${gtOtherCells}
@@ -2183,14 +2191,14 @@ function renderJisuu(){
       <col style="width:40px">
     </colgroup>
     <thead>
-      <tr style="background:#e8f2fc">
-        <th style="border:1px solid #b0c8e8;padding:4px 3px;text-align:left;color:var(--blue);font-size:10px" rowspan="2">学校名</th>
-        <th style="border:1px solid #b0c8e8;padding:4px 3px;text-align:center;color:var(--blue);font-size:10px" colspan="${timeTasks.length}">実施時間（コマ数）</th>
+      <tr style="background:#F7E8EC">
+        <th style="border:1px solid #D9A0B0;padding:4px 3px;text-align:left;color:var(--blue);font-size:10px" rowspan="2">学校名</th>
+        <th style="border:1px solid #D9A0B0;padding:4px 3px;text-align:center;color:var(--blue);font-size:10px" colspan="${timeTasks.length}">実施時間（コマ数）</th>
         <th style="border:1px solid #7ec8a0;padding:4px 3px;text-align:center;color:var(--sem2);font-size:10px;background:#e8f5e9" colspan="${countTasks.length}">実施回数</th>
         <th style="border:1px solid #ccc;padding:4px 3px;text-align:center;color:var(--muted);font-size:10px;background:#f5f5f5" colspan="${otherTasks.length}">その他</th>
       </tr>
       <tr style="background:#f0f6ff">
-        ${timeTasks.map(t=>`<th style="border:1px solid #b0c8e8;padding:3px 2px;text-align:center;color:var(--blue);font-size:9px;font-weight:600;white-space:normal;line-height:1.2">${escHtml(t.label)}</th>`).join('')}
+        ${timeTasks.map(t=>`<th style="border:1px solid #D9A0B0;padding:3px 2px;text-align:center;color:var(--blue);font-size:9px;font-weight:600;white-space:normal;line-height:1.2">${escHtml(t.label)}</th>`).join('')}
         ${countTasks.map(t=>`<th style="border:1px solid #7ec8a0;padding:3px 2px;text-align:center;color:var(--sem2);font-size:9px;font-weight:600;white-space:normal;line-height:1.2;background:#f0fff4">${escHtml(t.label)}</th>`).join('')}
         ${otherTasks.map(t=>`<th style="border:1px solid #ccc;padding:3px 2px;text-align:center;color:var(--muted);font-size:9px;font-weight:600;background:#fafafa">${escHtml(t.label)}</th>`).join('')}
       </tr>
@@ -2599,7 +2607,7 @@ function renderSummary(){
 
   // 列ヘッダー（月）
   const colHds = targetMonths.map(m=>`<th style="min-width:36px;font-size:10px">${m}月</th>`).join('') +
-    `<th style="min-width:40px;font-size:10px;background:#e8f2fc;color:var(--blue)">合計</th>`;
+    `<th style="min-width:40px;font-size:10px;background:#F7E8EC;color:var(--blue)">合計</th>`;
 
   // 行生成（学校×業務種別）
   const makeCell = v => `<td style="text-align:center;font-size:11px">${v||'―'}</td>`;
@@ -2610,7 +2618,7 @@ function renderSummary(){
     activeSchools.forEach((sc,si)=>{
       const scName = sc.name||'';
       const scLabel = si===0
-        ? `<td rowspan="${timeTasks.length}" style="font-weight:700;font-size:11px;white-space:nowrap;vertical-align:middle;background:${sc.honmu?'#e8f2fc':'#fafafa'}">${scName||'（未設定）'}<br><small style="color:var(--muted);font-size:9px">${sc.honmu?'本務':'兼務'+si}</small></td>`
+        ? `<td rowspan="${timeTasks.length}" style="font-weight:700;font-size:11px;white-space:nowrap;vertical-align:middle;background:${sc.honmu?'#F7E8EC':'#fafafa'}">${scName||'（未設定）'}<br><small style="color:var(--muted);font-size:9px">${sc.honmu?'本務':'兼務'+si}</small></td>`
         : '';
       if(si===0){
         // 学校名セルは最初の業務行にのみ出力
@@ -2633,7 +2641,7 @@ function renderSummary(){
       const total = targetMonths.reduce((a,m)=>a+(byMonth[m]?.[scName]?.[task.label]||0),0);
       const isFirst = ti===0;
       const scCell = isFirst
-        ? `<td rowspan="${timeTasks.length+countTasks.length+otherTasks.length+1}" style="font-weight:700;font-size:11px;white-space:nowrap;vertical-align:middle;background:${sc.honmu?'#e8f2fc':'#fafafa'};padding:4px 6px">${scTag}</td>`
+        ? `<td rowspan="${timeTasks.length+countTasks.length+otherTasks.length+1}" style="font-weight:700;font-size:11px;white-space:nowrap;vertical-align:middle;background:${sc.honmu?'#F7E8EC':'#fafafa'};padding:4px 6px">${scTag}</td>`
         : '';
       const isFirstTime = isFirst;
       const groupCell = isFirstTime
@@ -2857,7 +2865,7 @@ function refreshWbar(){
   }
   dayBtns.innerHTML=`
     <button id="btn-sat" class="wbtn${S.showSat?' on':''}"
-      style="font-size:11px;border-color:#1565c0;${S.showSat?'background:#1565c0;color:#fff':'color:#1565c0'}">土曜</button>
+      style="font-size:11px;border-color:#8C1C3A;${S.showSat?'background:#8C1C3A;color:#fff':'color:#8C1C3A'}">土曜</button>
     <button id="btn-sun" class="wbtn${S.showSun?' on':''}"
       style="font-size:11px;border-color:#b71c1c;${S.showSun?'background:#b71c1c;color:#fff':'color:#b71c1c'}">日曜</button>`;
   document.getElementById('btn-sat').onclick=()=>{S.showSat=!S.showSat;save();refreshWbar();renderTT();};
@@ -3092,25 +3100,25 @@ function printWeek(){
   border-bottom:2px solid #333; padding-bottom:2px; margin-bottom:4px; }
 .pa-title{ font-size:10px; font-weight:700; }
 .pa-name{ font-size:9px; }
-.pa-section-label{ font-size:9px; font-weight:700; margin-bottom:2px; color:#1a4f7a; }
+.pa-section-label{ font-size:9px; font-weight:700; margin-bottom:2px; color:#5C0E24; }
 .pa-table{ border-collapse:collapse; }
 .pa-table td,.pa-table th{ border:1px solid #999; }
 .ph-corner{ background:#e0e0e0; }
-.ph-hd{ background:#dde8f0; font-size:8px; text-align:center; padding:2px; font-weight:600; }
+.ph-hd{ background:#F0E0E5; font-size:8px; text-align:center; padding:2px; font-weight:600; }
 .ph-dow{ font-weight:700; font-size:9px; }
-.ph-dow-sat{ color:#1565c0; }
+.ph-dow-sat{ color:#8C1C3A; }
 .ph-dow-sun{ color:#b71c1c; }
-.ph-school{ background:#e8f2fc; font-size:8px; text-align:center; padding:2px; font-weight:700; }
+.ph-school{ background:#F7E8EC; font-size:8px; text-align:center; padding:2px; font-weight:700; }
 .ph-event{ font-size:7px; text-align:center; padding:2px; color:#00695c; background:#e0f2f1; min-height:10px; }
-.ph-slot-hd{ background:#dde8f0; text-align:center; font-weight:700; font-size:9px;
-  padding:2px; vertical-align:middle; color:#1a4f7a; }
+.ph-slot-hd{ background:#F0E0E5; text-align:center; font-weight:700; font-size:9px;
+  padding:2px; vertical-align:middle; color:#5C0E24; }
 .ph-slot-cell{ vertical-align:top; padding:3px; min-height:21mm; height:21mm; font-size:8px; }
-.ph-task{ font-weight:700; color:#1a4f7a; font-size:8px; }
+.ph-task{ font-weight:700; color:#5C0E24; font-size:8px; }
 .ph-task2{ color:#2e7d32; }
 .ph-det{ font-size:7px; color:#444; }
 .ph-sep{ border-top:1px dashed #bbb; margin:1px 0; }
-.ps-hd{ background:#dde8f0; text-align:center; font-size:8px; font-weight:600; padding:2px; white-space:nowrap; }
-.ps-time-hd{ background:#e8f2fc; color:#1a4f7a; }
+.ps-hd{ background:#F0E0E5; text-align:center; font-size:8px; font-weight:600; padding:2px; white-space:nowrap; }
+.ps-time-hd{ background:#F7E8EC; color:#5C0E24; }
 .ps-count-hd{ background:#e8f5e9; color:#2e7d32; }
 .ps-name{ font-size:8px; padding:2px 3px; }
 .ps-cell{ text-align:center; font-size:8px; padding:2px; }
@@ -3525,17 +3533,17 @@ function _printShared(sc){
 .spa-table{ border-collapse:collapse; }
 .spa-table td,.spa-table th{ border:1px solid #999; }
 .sh-corner{ background:#e0e0e0; }
-.sh-hd{ background:#dde8f0; font-size:8px; text-align:center; padding:2px; font-weight:600; }
+.sh-hd{ background:#F0E0E5; font-size:8px; text-align:center; padding:2px; font-weight:600; }
 .sh-dow{ font-weight:700; font-size:9px; }
-.sh-dow-sat{ color:#1565c0; }
+.sh-dow-sat{ color:#8C1C3A; }
 .sh-dow-sun{ color:#b71c1c; }
-.sh-school{ background:#e8f2fc; font-size:8px; text-align:center; padding:2px; font-weight:700; }
+.sh-school{ background:#F7E8EC; font-size:8px; text-align:center; padding:2px; font-weight:700; }
 .sh-event{ font-size:7px; text-align:center; padding:2px; color:#00695c; background:#e0f2f1; }
 .sh-offday{ background:#f5f5f5; }
-.sh-slot-hd{ background:#dde8f0; text-align:center; font-weight:700; font-size:9px;
-  padding:2px; vertical-align:middle; color:#1a4f7a; }
+.sh-slot-hd{ background:#F0E0E5; text-align:center; font-weight:700; font-size:9px;
+  padding:2px; vertical-align:middle; color:#5C0E24; }
 .sh-slot-cell{ vertical-align:top; padding:3px; min-height:19mm; height:19mm; font-size:8px; }
-.sh-task{ font-weight:700; color:#1a4f7a; font-size:8px; }
+.sh-task{ font-weight:700; color:#5C0E24; font-size:8px; }
 .sh-task2{ color:#2e7d32; }
 .sh-det{ font-size:7px; color:#444; }
 .sh-sep{ border-top:1px dashed #bbb; margin:1px 0; }`;
