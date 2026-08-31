@@ -2521,14 +2521,16 @@ function closeModal(){
 // ─── PATTERNS ────────────────────────────────────────────────────
 // ※ 旧データモデル（s1/s2/m1/m2/koury1/koury2）から現行モデル
 //   （task/grade/classNum/subject/memo/task2.../ratio1/schoolBadge）に対応。
+// ※ visSlots()は1〜6時限のみを返すため、放課後枠(houkago)は別途明示的に含める。
+const PAT_SLOT_IDS=['1','2','3','4','5','6','houkago'];
 function savePat(idx){
   const cells={};
-  for(const sl of visSlots()){
+  for(const sid of PAT_SLOT_IDS){
     for(const dk of DKEYS){
-      const c=getCell(curMonth,curWeek,sl.id,dk);
+      const c=getCell(curMonth,curWeek,sid,dk);
       if(c.task){
-        if(!cells[sl.id]) cells[sl.id]={};
-        cells[sl.id][dk]={
+        if(!cells[sid]) cells[sid]={};
+        cells[sid][dk]={
           task:c.task, grade:c.grade, classNum:c.classNum, subject:c.subject, memo:c.memo,
           task2:c.task2, grade2:c.grade2, classNum2:c.classNum2, subject2:c.subject2, memo2:c.memo2,
           ratio1:c.ratio1??null, schoolBadge:c.schoolBadge||'',
