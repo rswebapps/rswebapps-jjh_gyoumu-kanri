@@ -1,6 +1,6 @@
 // ── 授業改革推進業務実施記録 Service Worker ──────────────────
 // キャッシュ名（バージョンアップ時は変更する）
-const CACHE_NAME = 'gyomu-kiroku-v3';
+const CACHE_NAME = 'gyomu-kiroku-v4';
 
 // キャッシュ対象ファイル
 const CACHE_FILES = [
