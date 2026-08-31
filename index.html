@@ -2519,45 +2519,30 @@ function closeModal(){
 
 
 // ─── PATTERNS ────────────────────────────────────────────────────
+// ※ 旧データモデル（s1/s2/m1/m2/koury1/koury2）から現行モデル
+//   （task/grade/classNum/subject/memo/task2.../ratio1/schoolBadge）に対応。
 function savePat(idx){
   const cells={};
   for(const sl of visSlots()){
-    if(sl.base==='none') continue;
-    cells[sl.id]={};
     for(const dk of DKEYS){
       const c=getCell(curMonth,curWeek,sl.id,dk);
-      if(c.s1||c.s2) cells[sl.id][dk]={s1:c.s1,m1:c.m1,s2:c.s2,m2:c.m2,ratio1:c.ratio1??null,koury1:c.koury1||null,koury2:c.koury2||null};
+      if(c.task){
+        if(!cells[sl.id]) cells[sl.id]={};
+        cells[sl.id][dk]={
+          task:c.task, grade:c.grade, classNum:c.classNum, subject:c.subject, memo:c.memo,
+          task2:c.task2, grade2:c.grade2, classNum2:c.classNum2, subject2:c.subject2, memo2:c.memo2,
+          ratio1:c.ratio1??null, schoolBadge:c.schoolBadge||'',
+        };
+      }
     }
   }
-  // メモ行（日別）もパターンに含める
-  const memos=getWeekMemos(curMonth,curWeek);
-  const memoData={};
-  ['asa','gyoukan','lunch','leave','hw','renraku'].forEach(key=>{
-    memoData[key]={...memos[key]};
-  });
-  memoData.weekly_aim=memos.weekly_aim||'';
-  memoData.notice=memos.notice||'';
   S.patterns[idx].cells=cells;
-  S.patterns[idx].memos=memoData;
   save();buildPatMenus();
 }
 function loadPat(idx){
   if(!confirm(`パターン「${S.patterns[idx].name||'パターン'+(idx+1)}」を現在の週に読み込みます。\n現在の入力内容は上書きされます。よろしいですか？`)) return;
   const cells=S.patterns[idx].cells||{};
   for(const sid in cells) for(const dk in cells[sid]) setCell(curMonth,curWeek,sid,dk,cells[sid][dk]);
-  // メモ行の復元（パターンにmemosが含まれている場合のみ）
-  const memoData=S.patterns[idx].memos;
-  if(memoData){
-    ['asa','gyoukan','lunch','leave','hw','renraku'].forEach(key=>{
-      const dayObj=memoData[key];
-      if(!dayObj) return;
-      DKEYS.forEach(dk=>{
-        if(dayObj[dk]!==undefined) setWeekMemo(curMonth,curWeek,key,dayObj[dk],dk);
-      });
-    });
-    if(memoData.weekly_aim!==undefined) setWeekMemo(curMonth,curWeek,'weekly_aim',memoData.weekly_aim);
-    if(memoData.notice!==undefined) setWeekMemo(curMonth,curWeek,'notice',memoData.notice);
-  }
   renderTT();renderJisuu();
 }
 function buildPatMenus(){
